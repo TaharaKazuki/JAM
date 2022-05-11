@@ -1,6 +1,19 @@
-import mongoose from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
 
-const UserSchema = new mongoose.Schema(
+interface IUser {
+  username: string
+  email: string
+  password: string
+  profilePicture: string
+  coverPicture: string
+  followers: Types.DocumentArray<any>
+  followings: Types.DocumentArray<any>
+  isAdmin: boolean
+  desc: string
+  city: string
+}
+
+const UserSchema = new Schema<IUser>(
   {
     username: {
       type: String,
@@ -30,11 +43,11 @@ const UserSchema = new mongoose.Schema(
       default: '',
     },
     followers: {
-      type: Array,
+      type: [String],
       default: [],
     },
     followings: {
-      type: Array,
+      type: [String],
       default: [],
     },
     isAdmin: {
@@ -52,3 +65,5 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
+
+export default model('User', UserSchema)
