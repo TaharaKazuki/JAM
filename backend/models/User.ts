@@ -71,9 +71,16 @@ UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next()
   }
+
   const salt = await bcrypt.genSalt()
   this.password = await bcrypt.hash(this.password, salt)
   next()
 })
+
+// UserSchema.pre('findOneAndUpdate', async function () {
+//   console.info('通過3')
+//   const salt = await bcrypt.genSalt()
+//   this.password = await bcrypt.hash(this.password, salt)
+// })
 
 export default model('User', UserSchema)
