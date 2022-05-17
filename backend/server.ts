@@ -15,7 +15,6 @@ const app: Express = express()
 const PORT = 3000
 
 app.use(express.json())
-app.use('/api', authRouter)
-app.use('/api', usersRouter)
+app.use('/api', authRouter, usersRouter)
 
 app.listen(PORT, () => console.info('start server'))
