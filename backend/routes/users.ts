@@ -1,9 +1,8 @@
 import { Router } from 'express'
-import User from '../models/User'
+import { updateUser } from '../controllers/usersController'
+
 const router = Router()
 
-router.get('/user', async (req, res) => {
-  return res.status(200).json(res)
-})
+router.route('/users/:id').put(updateUser)
 
 export default router
