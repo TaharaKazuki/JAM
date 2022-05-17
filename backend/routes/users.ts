@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import { updateUser } from '../controllers/usersController'
+import { updateUser, deleteUser } from '../controllers/usersController'
 
 const router = Router()
 
-router.route('/users/:id').put(updateUser)
+router.route('/users/:id').put(updateUser).delete(deleteUser)
 
 export default router
