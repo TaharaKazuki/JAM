@@ -2,19 +2,19 @@ import { Request, Response } from 'express'
 import User from '../models/User'
 import bcrypt from 'bcrypt'
 
-export const createUser = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
+  const { username, email, password } = req.body
   try {
-    const salt = await bcrypt.genSalt()
-    const hashPassword = await bcrypt.hash(req.body.password, salt)
-
-    const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashPassword,
+    const user = await User.create({
+      username,
+      email,
+      password,
     })
 
-    const user = await newUser.save()
-    return res.status(200).json(user)
+    return res.status(201).json({
+      success: true,
+      user,
+    })
   } catch (err) {
     return res.status(500).json(err)
   }

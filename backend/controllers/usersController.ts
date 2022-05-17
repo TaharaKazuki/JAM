@@ -28,3 +28,12 @@ export const deleteUser = async (req: Request, res: Response) => {
     return res.status(403).json('you can your account only delete')
   }
 }
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id)
+    res.status(200).send(user)
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}

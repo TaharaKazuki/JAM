@@ -67,4 +67,13 @@ const UserSchema = new Schema<IUser>(
   { timestamps: true }
 )
 
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next()
+  }
+  const salt = await bcrypt.genSalt()
+  this.password = await bcrypt.hash(this.password, salt)
+  next()
+})
+
 export default model('User', UserSchema)
